@@ -11,7 +11,6 @@ export default function Home() {
       <Features/>
       <CallToAction/>
       <Footer/>
-      {/* menit 8.40 */}
     </>
     
   );

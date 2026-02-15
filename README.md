@@ -17,10 +17,27 @@ bun dev
 
 ```bash
 npx shadcn@latest init 
-npx shadcn@latest add button dan lainnya
+npx shadcn@latest add button sooner dan lainnya
 npx shadcn add @tailark/hero-section-2          = dari web https://tailark.com/hero-section
 npx shadcn add @tailark/features-1              = dari web tailark juga
 npx shadcn add @tailark/call-to-action-1
 npx shadcn add @tailark/footer-1
+```
+## Authentication Setup
+```bash
+npm install better-auth
+BETTER_AUTH_SECRET=O5TZaXuTE6FptmA2c5BLNyCyQTD5ssXJ
+create auth.ts                                  = liat docs better-auth drizzel
+npm i drizzle-orm                               = liat docs drizzel with Neon
+npm i -D drizzle-kit
+npm i @neondatabase/serverless
+ambil connection string di neon
+create folder db/db.ts drizzel.config.ts ikutin docs / repo ini
+npx @better-auth/cli generate                   = membuat auth-schema tapi pindahin ke db/schema.ts
+npx drizzle-kit push                            = cara tercepat nya gitu
+api/auth/[...all]/route.ts                      = copy di better-auth
+lib/ auth-client.ts                             = copy lagi
+npx shadcn@latest add login-01                  = template untuk login DLL
+
 
 ```
