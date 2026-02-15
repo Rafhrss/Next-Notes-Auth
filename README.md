@@ -13,7 +13,13 @@ pnpm dev
 # or
 bun dev
 ```
-
+## Website Support We Use
+- https://neon.com/
+- https://ui.shadcn.com/
+- https://www.better-auth.com/
+- https://orm.drizzle.team/
+- https://resend.com/docs/send-with-nextjs
+- https://new.email/
 
 ```bash
 npx shadcn@latest init 
@@ -39,5 +45,8 @@ api/auth/[...all]/route.ts                      = copy di better-auth
 lib/ auth-client.ts                             = copy lagi
 npx shadcn@latest add login-01                  = template untuk login DLL
 
-
+Email Verification Flow
+npm install resend                              = ambil di website https://resend.com/docs/send-with-nextjs
+https://new.email/                              = create me an email for user verification = create me now an email password reset
+npm install @react-email/components @react-email/render     = paling penting
 ```
