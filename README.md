@@ -28,6 +28,8 @@ npx shadcn add @tailark/hero-section-2          = dari web https://tailark.com/h
 npx shadcn add @tailark/features-1              = dari web tailark juga
 npx shadcn add @tailark/call-to-action-1
 npx shadcn add @tailark/footer-1
+npx shadcn@latest add sidebar-02
+
 ```
 ## Authentication Setup
 ```bash
@@ -49,4 +51,6 @@ Email Verification Flow
 npm install resend                              = ambil di website https://resend.com/docs/send-with-nextjs
 https://new.email/                              = create me an email for user verification = create me now an email password reset
 npm install @react-email/components @react-email/render     = paling penting
+
+npx drizzle-kit push                           = Setelah membuat Schema atau Table
 ```

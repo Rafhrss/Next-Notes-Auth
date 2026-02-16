@@ -1,13 +1,22 @@
-import Logout from '@/components/logout'
-import React from 'react'
+import { PageWrapper } from "@/components/page-wrapper";
+import { getNotebooks } from "@/server/notebooks";
 
-function page() {
+export default async function page() {
+  const notebooks = await getNotebooks();
+
   return (
-    <div>
-      <h1>dashboar</h1>
-      <Logout/>
-    </div>
-  )
-}
+    <PageWrapper breadcrumbs={[{ label: "Dashboard", href: "/dashboard" }]}>
+      <h1>NoteBooks</h1>
 
-export default page
+      {notebooks.success &&
+        notebooks?.notebooks?.map((notebook) => (
+          <div key={notebook.id}>{notebook.name}</div>
+        ))}
+
+      {notebooks.success && notebooks?.notebooks?.length === 0 && (
+        <div>No Notebooks Found</div>
+      )}
+
+    </PageWrapper>
+  );
+}
