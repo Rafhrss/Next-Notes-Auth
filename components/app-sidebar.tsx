@@ -33,7 +33,7 @@ const data = {
         url: `/dashboard/${notebook.id}`,
         items: notebook.notes.map((note) => ({
           title: note.title,
-          url: `/dashboard/notebook/${notebook.id}/note/${note.id}`,
+          url: `/dashboard/note/${note.id}`,
         })),
       })) ?? []),
     ],
