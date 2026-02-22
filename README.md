@@ -58,4 +58,6 @@ npx drizzle-kit push                           = Setelah membuat Schema atau Tab
 ## Integrations Rich text editor Setup
 ```bash
 npm install @tiptap/react @tiptap/pm @tiptap/starter-kit    = ambil di website nya tiptap.dev/docs/editor
+
+npm install nuqs                                            = search form menjadi lebih bagus dan berfungsi cerdas
 ```

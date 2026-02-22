@@ -405,5 +405,3 @@ const RichTextEditor = ({ content, noteId }: RichTextEditorProps) => {
 };
 
 export default RichTextEditor;
-
-// menit 1.53

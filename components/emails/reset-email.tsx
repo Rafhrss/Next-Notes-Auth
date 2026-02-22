@@ -1,4 +1,3 @@
-import * as React from 'react';
 import {
   Body,
   Button,
@@ -19,7 +18,7 @@ interface PasswordResetEmailProps {
   requestTime: string;
 }
 
-const PasswordResetEmail = ({ userName, resetUrl, requestTime } : PasswordResetEmailProps) => {
+const PasswordResetEmail = ({ userName, resetUrl } : PasswordResetEmailProps) => {
 
   return (
     <Html lang="en" dir="ltr">
