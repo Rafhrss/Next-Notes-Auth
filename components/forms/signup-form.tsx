@@ -26,12 +26,12 @@ import {
 import { signUpUser } from "@/server/users";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Loader2, Eye, EyeOff, Github } from "lucide-react";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 
 const formSchema = z.object({
-  email: z.email(),
+  email: z.string().email(),
   password: z.string().min(8),
   confirmPassword: z.string().min(8),
   name: z.string().min(1),
@@ -42,6 +42,8 @@ export function SignupForm({
   ...props
 }: React.ComponentProps<"div">) {
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // State untuk toggle password
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -64,7 +66,7 @@ export function SignupForm({
       const response = await signUpUser(
         values.email,
         values.password,
-        values.name
+        values.name,
       );
       if (response.success) {
         toast.success("Please check your email for verification.");
@@ -78,9 +80,16 @@ export function SignupForm({
     }
   }
 
-  const signUp = async () => {
+  const signUpGoogle = async () => {
     await authClient.signIn.social({
       provider: "google",
+      callbackURL: "/dashboard",
+    });
+  };
+
+  const signUpGithub = async () => {
+    await authClient.signIn.social({
+      provider: "github",
       callbackURL: "/dashboard",
     });
   };
@@ -136,11 +145,25 @@ export function SignupForm({
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input
-                            type="password"
-                            placeholder="********"
-                            {...field}
-                          />
+                          <div className="relative">
+                            <Input
+                              type={showPassword ? "text" : "password"}
+                              placeholder="********"
+                              className="pr-10"
+                              {...field}
+                            />
+                            <button
+                              type="button"
+                              onClick={() => setShowPassword(!showPassword)}
+                              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                            >
+                              {showPassword ? (
+                                <EyeOff className="size-4" />
+                              ) : (
+                                <Eye className="size-4" />
+                              )}
+                            </button>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -155,11 +178,25 @@ export function SignupForm({
                       <FormItem>
                         <FormLabel>Confirm Password</FormLabel>
                         <FormControl>
-                          <Input
-                            type="password"
-                            placeholder="********"
-                            {...field}
-                          />
+                          <div className="relative">
+                            <Input
+                              type={showPassword ? "text" : "password"}
+                              placeholder="********"
+                              className="pr-10"
+                              {...field}
+                            />
+                            <button
+                              type="button"
+                              onClick={() => setShowPassword(!showPassword)}
+                              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                            >
+                              {showPassword ? (
+                                <EyeOff className="size-4" />
+                              ) : (
+                                <Eye className="size-4" />
+                              )}
+                            </button>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -177,10 +214,19 @@ export function SignupForm({
                   <Button
                     variant="outline"
                     className="w-full"
-                    onClick={signUp}
+                    onClick={signUpGoogle}
                     type="button"
                   >
                     Sign up with Google
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    onClick={signUpGithub}
+                    type="button"
+                  >
+                    <Github className="w-4" />
+                    Sign up with GitHub
                   </Button>
                 </div>
               </div>

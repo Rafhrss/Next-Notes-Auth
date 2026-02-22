@@ -26,13 +26,13 @@ import {
 import { signInUser } from "@/server/users";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Loader2, Eye, EyeOff, Github } from "lucide-react"; // Tambahkan Eye & EyeOff
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 
 const formSchema = z.object({
-  email: z.email(),
+  email: z.string().email(), // Perbaikan kecil: z.string().email()
   password: z.string().min(8),
 });
 
@@ -43,6 +43,8 @@ export function LoginForm({
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // State untuk toggle password
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -51,9 +53,16 @@ export function LoginForm({
     },
   });
 
-  const signIn = async () => {
+  const signInGoogle = async () => {
     await authClient.signIn.social({
       provider: "google",
+      callbackURL: "/dashboard",
+    });
+  };
+
+  const signInGithub = async () => {
+    await authClient.signIn.social({
+      provider: "github",
       callbackURL: "/dashboard",
     });
   };
@@ -119,11 +128,25 @@ export function LoginForm({
                           </Link>
                         </div>
                         <FormControl>
-                          <Input
-                            type="password"
-                            placeholder="********"
-                            {...field}
-                          />
+                          <div className="relative">
+                            <Input
+                              type={showPassword ? "text" : "password"}
+                              placeholder="********"
+                              className="pr-10" // Beri padding kanan agar teks tidak tertimpa ikon
+                              {...field}
+                            />
+                            <button
+                              type="button"
+                              onClick={() => setShowPassword(!showPassword)}
+                              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                            >
+                              {showPassword ? (
+                                <EyeOff className="size-4" />
+                              ) : (
+                                <Eye className="size-4" />
+                              )}
+                            </button>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -141,10 +164,19 @@ export function LoginForm({
                   <Button
                     variant="outline"
                     className="w-full"
-                    onClick={signIn}
+                    onClick={signInGoogle}
                     type="button"
                   >
                     Login with Google
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    onClick={signInGithub}
+                    type="button"
+                  >
+                    <Github className="w-4" />
+                    Login with GitHub
                   </Button>
                 </div>
               </div>

@@ -23,20 +23,28 @@ export const auth = betterAuth({
   },
 
   socialProviders: {
-        google: { 
-            clientId: process.env.GOOGLE_CLIENT_ID as string, 
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string, 
-        }, 
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
+    github: {
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+    },
+  },
 
   emailAndPassword: {
     enabled: true,
-    sendResetPassword: async ({user, url }) => {
+    sendResetPassword: async ({ user, url }) => {
       await resend.emails.send({
         from: "NoteForge <onboarding@resend.dev>",
         to: [user.email],
         subject: "Reset your password",
-        react: PasswordResetEmail({ userName: user.name, resetUrl: url, requestTime: new Date().toLocaleString() }),
+        react: PasswordResetEmail({
+          userName: user.name,
+          resetUrl: url,
+          requestTime: new Date().toLocaleString(),
+        }),
       });
     },
   },
