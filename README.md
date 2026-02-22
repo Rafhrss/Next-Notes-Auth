@@ -54,3 +54,8 @@ npm install @react-email/components @react-email/render     = paling penting
 
 npx drizzle-kit push                           = Setelah membuat Schema atau Table
 ```
+
+## Integrations Rich text editor Setup
+```bash
+npm install @tiptap/react @tiptap/pm @tiptap/starter-kit    = ambil di website nya tiptap.dev/docs/editor
+```
