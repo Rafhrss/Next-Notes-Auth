@@ -39,7 +39,7 @@ export async function AppSidebar({
           <h2>NoteForge</h2>
         </Link>
 
-        <React.Suspense>
+        <React.Suspense fallback={<div className="h-9 w-full animate-pulse bg-muted rounded-md" />}>
           <SearchForm />
         </React.Suspense>
       </SidebarHeader>
